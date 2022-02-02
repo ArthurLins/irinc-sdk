@@ -16,8 +16,9 @@ class Script {
 
   exec () {
     this.getScript()
-      .then(this.deploy)
+      .then(this.deploy.bind(this))
       .then(() => console.log('Deploy Successfully!'))
+      .catch(err => console.log(`Deploy Failed! ${err}`))
   }
 
   deploy (script) {
@@ -30,7 +31,7 @@ class Script {
       url,
     }
 
-    axios(options)
+    return axios(options)
   }
 
   async getScript () {
