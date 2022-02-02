@@ -1,0 +1,9 @@
+# Logs
+yarn-debug.log*
+yarn-error.log*
+
+# Diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Dependency directories
+node_modules/
