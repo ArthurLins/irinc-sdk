@@ -22,7 +22,7 @@ class Script {
 
   deploy (script) {
     const roomid = this.config.roomid
-    const url = `${this.url}/uploadScript?roomid=${roomid}`
+    const url = `${this.url}/scriptApi.php?roomid=${roomid}`
     const options = {
       method: 'GET',
       headers: { 'token': this.token },

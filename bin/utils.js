@@ -6,13 +6,13 @@ const addOptions = () => {
   
   const prod = {
     alias: 'production',
-    describe: 'Minimize file before deploy.',
+    describe: 'Minimize file before deploy',
     type: 'boolean'
   }
   
   const token = {
     alias: 'token',
-    describe: 'Set token ',
+    describe: 'Set token',
     type: 'string'
   }
   
