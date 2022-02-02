@@ -1,13 +1,16 @@
 const { rollup } = require('rollup')
 const { terser } = require('rollup-plugin-terser')
+const { existsSync, readFileSync } = require('fs')
 const { join } = require('path')
-const { readdirSync, existsSync } = require('fs')
+const axios = require('axios')
 
 class Script {
   constructor (production = false) {
     this.production = production
+    this.url = 'https://ironhotel.biz'
     this.directory = process.cwd()
-    this.config = this.getConfig()
+    this.config = this.getFile(this.directory, 'config.json')
+    this.token = this.getFile(__dirname, '.token', true)
     this.exec()
   }
 
@@ -18,7 +21,16 @@ class Script {
   }
 
   deploy (script) {
-    return console.log('TODO: API')
+    const roomid = this.config.roomid
+    const url = `${this.url}/uploadScript?roomid=${roomid}`
+    const options = {
+      method: 'GET',
+      headers: { 'token': this.token },
+      data: script,
+      url,
+    }
+
+    axios(options)
   }
 
   async getScript () {
@@ -28,21 +40,6 @@ class Script {
     const output = await input.generate(config)
     const script = output?.output[0]
     return script?.code
-  }
-
-  getConfig () {
-    const dir = join(this.directory, 'config.json')
-
-    if (!existsSync(dir)) {
-      throw new Error('Missing Config File!')
-    }
-
-    return require(dir)
-  }
-
-  getFiles () {
-    return readdirSync(this.directory)
-      .filter(file => file.endsWith('js'))
   }
 
   getOutputConfig () {
@@ -61,6 +58,21 @@ class Script {
     }
 
     return config
+  }
+
+  getFile (directory, file, read) {
+    const dir = join(directory, file)
+
+    if (!existsSync(dir)) {
+      const err = new Error(`Missing ${file}!`)
+      throw err
+    }
+
+    if (!read) {
+      return require(dir)
+    }
+
+    return readFileSync(dir, 'utf-8')
   }
 }
 

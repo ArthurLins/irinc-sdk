@@ -1,23 +1,18 @@
 {
-  "name": "irinc-cli",
+  "name": "irinc-sdk",
   "version": "1.0.0",
-  "description": "A CLI for deploying Irinc-Script",
+  "description": "SDK for deploying Irinc-Script",
   "author": "Gabriel T",
   "main": "bin/index.js",
-  "license": "ISC",
-  "keywords": [
-    "cli"
-  ],
+  "license": "GPL",
   "bin": {
     "irinc": "./bin/index.js"
   },
-  "scripts": {
-    "build": "rollup --config"
-  },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "axios": "^0.25.0",
     "rollup": "^2.66.1",
     "rollup-plugin-terser": "^7.0.2",
-    "@rollup/plugin-node-resolve": "^13.1.3",
-    "axios": "^0.25.0"
+    "yargs": "^17.3.1"
   }
 }
